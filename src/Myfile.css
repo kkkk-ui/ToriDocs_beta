@@ -1,0 +1,11 @@
+.file-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+  
+.file-link:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+}
+  
