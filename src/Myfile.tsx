@@ -10,7 +10,7 @@ export const Myfile = () =>{
         try {
             const res = await fetch("http://localhost:8000/files");
             const data = await res.json();
-            setFiles(data.files); // ← ここ！
+            setFiles(data.files); 
             console.log(data.files)
             files.forEach((file) => {
                 console.log(file.name);
