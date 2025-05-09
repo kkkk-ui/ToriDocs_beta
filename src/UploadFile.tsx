@@ -1,12 +1,21 @@
 import "./UploadFile.css"
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "./components/Header";
 
+const extensionMap: Record<string, string[]> = {
+  excel: [".xlsx", "xls"],
+  pdf: [".pdf"],
+  word: [".doc", ".docx"]
+};
+
 export const UploadFile = () => {
-  const title: string = "ファイルをここにドラッグ";
+  const { type } = useParams();
   const [files, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const allowedExtensions = extensionMap[type ?? ""] || [];
+
+  const title: string = "ファイルをここにドラッグ";
   const navigate = useNavigate(); // ← これを使って画面遷移できる！
     
   files.forEach((file) => {
@@ -16,6 +25,11 @@ export const UploadFile = () => {
     // 2769524
   });
 
+  const isValidExtension = (filename: string): boolean => {
+    const ext = filename.slice(filename.lastIndexOf(".")).toLowerCase();
+    return allowedExtensions.includes(ext);
+  };
+
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(true);
@@ -23,17 +37,16 @@ export const UploadFile = () => {
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (e.dataTransfer.files) {
-      setFiles(Array.from(e.dataTransfer.files));
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    const valid = droppedFiles.filter(file => isValidExtension(file.name));
+
+    if (valid.length < droppedFiles.length) {
+      alert("許可されていないファイルが含まれています。");
     }
+
+    setFiles(valid);
     setIsDragging(false);
   };
-
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files && e.target.files.length > 0) {
-  //     setFiles(Array.from(e.target.files));
-  //   }
-  // };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,8 +58,9 @@ export const UploadFile = () => {
 
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]); // ← FastAPIの "files" と一致！
+      formData.append("files", files[i]); 
     }
+    formData.append("folder", type ?? "other");
 
     try {
       const res = await fetch("http://localhost:8000/upload", {

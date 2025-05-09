@@ -10,8 +10,8 @@ export const Header = () => {
             <a href="/">ToriDocs</a>
         </div>
         <nav className="nav_menu">
-            <a href="/my_file" className="menu1">マイファイル</a>
-            <a href="/upload_file" className="menu2">アップロード</a>
+            <a href="/my_file_menu" className="menu1">マイファイル</a>
+            <a href="/" className="menu2">アップロード</a>
             <a href="#takeout" className="menu3">共有</a>
             <a href="#about" className="menu4">お気に入り</a>
             <a href="#contact" className="menu5">お問い合わせ</a>

@@ -1,14 +1,16 @@
 import "./Myfile.css"
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Header } from "./components/Header"
 
 export const Myfile = () =>{
+    const { type } = useParams();
     const [files, setFiles] = useState<{ name: string; size: number }[]>([]);
 
     useEffect(() => {
         const fetchFiles = async () => {
         try {
-            const res = await fetch("http://localhost:8000/files");
+            const res = await fetch(`http://localhost:8000/files/${type}`);
             const data = await res.json();
             setFiles(data.files); 
             console.log(data.files)
@@ -33,7 +35,7 @@ export const Myfile = () =>{
             {files.map((file, index) => (
                 <li key={index} className="file-item">
                 <a
-                    href={`http://localhost:8000/download/${encodeURIComponent(file.name)}`}
+                    href={`http://localhost:8000/download/${type}/${encodeURIComponent(file.name)}`}
                     download
                     className="file-link"
                 >
