@@ -7,6 +7,7 @@ import { Myfile_menu } from './Myfile_menu';
 import { Test } from "./test";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from './Home';
+import { Login } from './Login';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/upload_file/:type' element={<UploadFile />} />
         <Route path='/my_file/:type' element={<Myfile />}/>
         <Route path='/my_file_menu' element={<Myfile_menu />}/>
+        <Route path='/login' element={<Login />}/>
         <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>

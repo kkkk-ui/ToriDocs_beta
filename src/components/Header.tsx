@@ -19,7 +19,7 @@ export const Header = () => {
             {menuOpen && (
                 <div className="menu_list">
                     <a href="/">ホーム</a>
-                    <a href="#login">ログイン</a>
+                    <a href="/login">ログイン</a>
                 </div>
             )} 
         </nav>

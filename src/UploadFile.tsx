@@ -4,9 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "./components/Header";
 
 const extensionMap: Record<string, string[]> = {
-  excel: [".xlsx", "xls"],
-  pdf: [".pdf"],
-  word: [".doc", ".docx"]
+  Excel: [".xlsx", "xls"],
+  PDF: [".pdf"],
+  Word: [".doc", ".docx"]
 };
 
 export const UploadFile = () => {
@@ -15,7 +15,7 @@ export const UploadFile = () => {
   const [isDragging, setIsDragging] = useState(false);
   const allowedExtensions = extensionMap[type ?? ""] || [];
 
-  const title: string = "ファイルをここにドラッグ";
+  const title: string = type + "ファイルをここにドラッグ";
   const navigate = useNavigate(); // ← これを使って画面遷移できる！
     
   files.forEach((file) => {
@@ -80,7 +80,7 @@ export const UploadFile = () => {
   return (
     <>
       <Header/>
-      <div className="App">
+      <div className="upload-field">
             <h1>{title}</h1>
             <form onSubmit={handleSubmit}>
               <div onDragOver={handleDragOver} onDrop={handleDrop} className={`drop-zone ${isDragging ? "drag-over" : ""}`} >
