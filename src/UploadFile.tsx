@@ -6,7 +6,10 @@ import { Header } from "./components/Header";
 const extensionMap: Record<string, string[]> = {
   Excel: [".xlsx", "xls"],
   PDF: [".pdf"],
-  Word: [".doc", ".docx"]
+  Word: [".doc", ".docx"],
+  Powerpoint: [".pptx"],
+  Media: [".png", ".jpg", "jpeg", ".svg", ".mp4"],
+  Zip: [".zip"]
 };
 
 export const UploadFile = () => {
@@ -16,7 +19,7 @@ export const UploadFile = () => {
   const allowedExtensions = extensionMap[type ?? ""] || [];
 
   const title: string = type + "ファイルをここにドラッグ";
-  const navigate = useNavigate(); // ← これを使って画面遷移できる！
+  const navigate = useNavigate(); // 画面遷移
     
   files.forEach((file) => {
     console.log(file.name);
@@ -80,28 +83,28 @@ export const UploadFile = () => {
   return (
     <>
       <Header/>
-      <div className="upload-field">
-            <h1>{title}</h1>
-            <form onSubmit={handleSubmit}>
-              <div onDragOver={handleDragOver} onDrop={handleDrop} className={`drop-zone ${isDragging ? "drag-over" : ""}`} >
-                {files.length === 0 && (
-                  <p className="drop-message">ここにファイルをドラッグ＆ドロップしてください</p>
-                )}
-                {files.length > 0 && (
-                  <ul className="file-list">
-                    {files.map((file, index) => (
-                      <li key={index} className="file-item">
-                        <span className="file-name">{file.name}</span>
-                        <span className="file-size">({(file.size / 1024).toFixed(1)} KB)</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <button type="submit">アップロード</button>     
-            </form>
-      
-            
+      <div className="upload-layout">
+        <div className="upload-field">
+          <h1>{title}</h1>
+          <form className="upload-form" onSubmit={handleSubmit}>
+            <div onDragOver={handleDragOver} onDrop={handleDrop} className={`drop-zone ${isDragging ? "drag-over" : ""}`} >
+              {files.length === 0 && (
+                <p className="drop-message">ここにファイルをドラッグ＆ドロップしてください</p>
+              )}
+              {files.length > 0 && (
+                <ul className="file-list">
+                  {files.map((file, index) => (
+                    <li key={index} className="file-item">
+                      <span className="file-name">{file.name}</span>
+                      <span className="file-size">({(file.size / 1024).toFixed(1)} KB)</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <button type="submit">アップロード</button>     
+          </form>
+        </div>
       </div>
     </>
     

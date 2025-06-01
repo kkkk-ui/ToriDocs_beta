@@ -1,7 +1,36 @@
-form{
+.login-layout{
     display: flex;
     flex-direction: column;
     align-items: center;   
     justify-content: center; 
     height: 100vh; 
+}
+
+.login-field{
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+    justify-content: center; 
+    background-color: #fff;
+    width: 500px;
+    height: 600px;
+}
+
+.login-message{
+    margin: 50px;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.login-layout form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+    justify-content: center; 
+}
+
+.login-layout form input{
+    margin: 10px;
+    width: 200px;
+    height: 30px;
 }

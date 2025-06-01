@@ -31,20 +31,23 @@ export const Myfile = () =>{
     return(
         <>
             <Header/>
-            <ul className="file-list">
-            {files.map((file, index) => (
-                <li key={index} className="file-item">
-                <a
-                    href={`http://localhost:8000/download/${type}/${encodeURIComponent(file.name)}`}
-                    download
-                    className="file-link"
-                >
-                    {file.name}
-                </a>
-                <span className="file-size">({file.size} KB)</span>
-                </li>
-            ))}
-            </ul>
+            <div className="myfile-layout">
+                <ul className="file-list">
+                {files.map((file, index) => (
+                    <li key={index} className="file-item">
+                    <a
+                        href={`http://localhost:8000/download/${type}/${encodeURIComponent(file.name)}`}
+                        download
+                        className="file-link"
+                    >
+                        {file.name}
+                    </a>
+                    <span className="file-size">({file.size} KB)</span>
+                    </li>
+                ))}
+                </ul>
+            </div>
+            
         </>
 
     );

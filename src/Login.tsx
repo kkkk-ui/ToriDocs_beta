@@ -1,5 +1,4 @@
 import "./Login.css" ;
-import { Header } from "./components/Header";
 import { useState } from "react";
 
 export const Login = () =>{
@@ -25,12 +24,21 @@ export const Login = () =>{
     };
     return(
         <>
-            <Header></Header>
-            <form onSubmit={handleSubmit}>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="メールアドレス" required></input>
-                <input type="password" value={password} onChange={e => setPossword(e.target.value)} placeholder="パスワード" required></input>
-                <button type="submit">ログイン</button>
-            </form>
+            <div className="login-layout">
+                <div className="login-field">
+                    <div className="login-message">
+                        <div>
+                            ログイン
+                        </div>
+                    </div>
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="メールアドレス" required></input>
+                        <input type="password" value={password} onChange={e => setPossword(e.target.value)} placeholder="パスワード" required></input>
+                        <button type="submit">ログイン</button>
+                    </form>
+                </div>
+                
+            </div>
         </>
     );
 }

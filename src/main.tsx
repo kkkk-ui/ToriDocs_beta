@@ -1,11 +1,13 @@
+import "./index.css";
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import "./index.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { UploadFile } from "./UploadFile";
 import { Myfile } from './Myfile';
 import { Myfile_menu } from './Myfile_menu';
 import { Test } from "./test";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from './Home';
 import { Login } from './Login';
 

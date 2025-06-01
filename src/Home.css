@@ -1,37 +1,43 @@
-.container{
-    display: flex;
-    align-items: center;
-    width: 1300px;    
-    padding: 40px;
-}
-
 .home-layout{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
+    padding-left: 70px;
+    padding-right: 70px;
+    height: 100vh;
 }
 
 .home-message {
     padding: 10px;
     font-size: 24px;
     line-height: 1.6;
+    text-align: center;
 }
 
 .upload-buttons {
     padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 300px);
+    gap: 20px; 
+    
+}
+
+.upload-buttons a{
     display: flex;
     justify-content: center;
-    gap: 20px; 
-    margin-top: 30px;
+    align-items: center;
+    text-decoration: none;
 }
 
 .icon-button {
     display: flex;
     align-items: center;
     border: none;
-    background: none;
+    background-color: #fff;
     cursor: pointer;
+    padding-top: 25px;
+    padding-bottom: 25px;
     transition: transform 0.2s;
 }
 
@@ -40,7 +46,9 @@
     font-size: 18px;
     font-weight: bold;
     white-space: nowrap;
-
+    width: 180px;
+    height: 30px;
+    text-align: left;
 }
 
 .icon-button:hover {
