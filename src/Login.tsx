@@ -21,6 +21,10 @@ export const Login = () =>{
         console.log(successMessage);
         console.log(data)
         if (data.status === "ok"){
+            localStorage.setItem("currentUser", JSON.stringify({
+            email: data.email,
+            token: data.token
+            }));
             navigate("/");
         }
         } catch (error) {

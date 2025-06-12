@@ -59,5 +59,6 @@ async def download_file(folder: str, filename: str):
 async def login(data: LoginRequest):
     print("email : ",data.email)
     print("password : ",data.password)
+    token = "goishgru"
     if data.email in emailList:
-        return {"message": "ログイン成功", "status": "ok"}
+        return {"status": "ok", "email": data.email, "token": token}
