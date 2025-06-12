@@ -1,25 +1,31 @@
 import "./Login.css" ;
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () =>{
     const [email, setEmail] = useState<string>("");
     const [password, setPossword] = useState<string>("")
+    const navigate = useNavigate(); // 画面遷移
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-        const res = await fetch("http://localhost:8000/upload", {
+        const res = await fetch("http://localhost:8000/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
         });
         const data = await res.json();
         const successMessage = "アップロード成功";
-        console.log(successMessage, data);
+        console.log(successMessage);
+        console.log(data)
+        if (data.status === "ok"){
+            navigate("/");
+        }
         } catch (error) {
-        const successMessage = "アップロード失敗";
-        console.error(successMessage, error);
+            const successMessage = "アップロード失敗";
+            console.error(successMessage, error);
         }
     };
     return(

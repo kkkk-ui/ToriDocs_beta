@@ -1,9 +1,16 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from pydantic import BaseModel
 import os
 
 app = FastAPI()
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+emailList = ["kota160815@gmail.com"]
 
 # CORS設定：Reactからのアクセスを許可する
 app.add_middleware(
@@ -47,3 +54,10 @@ async def download_file(folder: str, filename: str):
         return FileResponse(file_path, media_type="application/octet-stream", filename=filename)
     else:
         return {"error": "ファイルが存在しません"}
+    
+@app.post("/login")
+async def login(data: LoginRequest):
+    print("email : ",data.email)
+    print("password : ",data.password)
+    if data.email in emailList:
+        return {"message": "ログイン成功", "status": "ok"}
