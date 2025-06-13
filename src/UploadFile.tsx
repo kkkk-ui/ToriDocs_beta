@@ -1,5 +1,5 @@
 import "./UploadFile.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "./components/Header";
 
@@ -8,7 +8,7 @@ const extensionMap: Record<string, string[]> = {
   PDF: [".pdf"],
   Word: [".doc", ".docx"],
   Powerpoint: [".pptx"],
-  Media: [".png", ".jpg", "jpeg", ".svg", ".mp4"],
+  Media: [".png", ".jpg", "jpeg", ".svg", ".mp4", "gif"],
   Zip: [".zip"]
 };
 
@@ -20,6 +20,23 @@ export const UploadFile = () => {
 
   const title: string = type + "ファイルをここにドラッグ";
   const navigate = useNavigate(); // 画面遷移
+
+  const userJson = localStorage.getItem("currentUser");
+ 
+  useEffect(() => {
+    const userJson = localStorage.getItem("currentUser");
+    if (userJson) {
+      try {
+        const user = JSON.parse(userJson);
+        const email = encodeURIComponent(user.email);
+        const token = user.token;
+      } catch (e) {
+        console.error("currentUserのパースに失敗:", e);
+      }
+    }else{
+      navigate("/login");
+    }
+  }, []);
     
   files.forEach((file) => {
     console.log(file.name);

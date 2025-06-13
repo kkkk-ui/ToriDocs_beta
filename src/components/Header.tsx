@@ -1,8 +1,30 @@
 import "./Header.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [currentEmail, setCurrentEmail] =useState("");
+
+  useEffect(() => {
+    const userJson = localStorage.getItem("currentUser");
+    if (userJson) {
+      try {
+        const user = JSON.parse(userJson);
+        setCurrentEmail(user.email); 
+      } catch (e) {
+        console.error("currentUserのパースに失敗:", e);
+      }
+    }
+  }, []);
+
+  const logout = () => {
+    const confirmLogout = window.confirm("本当にログアウトしますか？");
+    if (confirmLogout) {
+        localStorage.removeItem("currentUser"); 
+        window.location.href = "/"; 
+    }
+  };
+
 
   return ( 
     <header className="site_header">
@@ -19,7 +41,14 @@ export const Header = () => {
             {menuOpen && (
                 <div className="menu_list">
                     <a href="/">ホーム</a>
+                    {currentEmail ? (
+                    <>
+                        <a href="/login">{currentEmail}</a>
+                        <button onClick={logout}>ログアウト</button>
+                    </>
+                    ) : (
                     <a href="/login">ログイン</a>
+                    )}
                 </div>
             )} 
         </nav>
