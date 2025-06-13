@@ -2,19 +2,29 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
+<<<<<<< HEAD
 from jose import jwt, JWTError
+=======
+>>>>>>> cfdd890ee4dd45a06558d84917b03041c3cb8a0c
 import os
 
 app = FastAPI()
 
+<<<<<<< HEAD
 SECRET_KEY = "secret"
 ALGORITHM = "HS256"
 
+=======
+>>>>>>> cfdd890ee4dd45a06558d84917b03041c3cb8a0c
 class LoginRequest(BaseModel):
     email: str
     password: str
 
+<<<<<<< HEAD
 accountList = {"kota160815@gmail.com":"kota0815"}
+=======
+emailList = ["kota160815@gmail.com"]
+>>>>>>> cfdd890ee4dd45a06558d84917b03041c3cb8a0c
 
 # CORS設定：Reactからのアクセスを許可する
 app.add_middleware(
@@ -61,6 +71,7 @@ async def upload(files: list[UploadFile] = File(...),
             f.write(await file.read())
         filenames.append(file.filename)
     return {"filenames": filenames}
+<<<<<<< HEAD
     
 @app.post("/login")
 async def login(data: LoginRequest):
@@ -69,4 +80,21 @@ async def login(data: LoginRequest):
     print("password : ",data.password)
     print("token : ",token)
     if((data.email in accountList) and (data.password == accountList[data.email])):
+=======
+
+@app.get("/download/{folder}/{filename}")
+async def download_file(folder: str, filename: str):
+    file_path = os.path.join(UPLOAD_DIR, folder, filename)
+    if os.path.exists(file_path):
+        return FileResponse(file_path, media_type="application/octet-stream", filename=filename)
+    else:
+        return {"error": "ファイルが存在しません"}
+    
+@app.post("/login")
+async def login(data: LoginRequest):
+    print("email : ",data.email)
+    print("password : ",data.password)
+    token = "goishgru"
+    if data.email in emailList:
+>>>>>>> cfdd890ee4dd45a06558d84917b03041c3cb8a0c
         return {"status": "ok", "email": data.email, "token": token}
