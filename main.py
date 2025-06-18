@@ -14,8 +14,12 @@ class LoginRequest(BaseModel):
     email: str
     password: str
 
+<<<<<<< HEAD
 accountList = {"kota160815@gmail.com":"kota0815",
                "ginno@gmail.com":"ginno10"}
+=======
+accountList = {"kota160815@gmail.com":"kota0815"}
+>>>>>>> b890f64ab5a7a3c67d253b74bc4cf4ed0e80a0a7
 
 # CORS設定：Reactからのアクセスを許可する
 app.add_middleware(
