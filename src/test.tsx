@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Header } from "./components/Header";
-
+import "./test.css"
 
 export const Test = () => {
     const title: string = "File Size";

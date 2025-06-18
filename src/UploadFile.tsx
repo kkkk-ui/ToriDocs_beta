@@ -8,7 +8,7 @@ const extensionMap: Record<string, string[]> = {
   PDF: [".pdf"],
   Word: [".doc", ".docx"],
   Powerpoint: [".pptx"],
-  Media: [".png", ".jpg", "jpeg", ".svg", ".mp4", "gif"],
+  Media: [".png", ".jpg", ".jpeg", ".svg", ".mp4", "gif"],
   Zip: [".zip"]
 };
 
@@ -16,20 +16,20 @@ export const UploadFile = () => {
   const { type } = useParams();
   const [files, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [token, setToken] = useState<string>("");
   const allowedExtensions = extensionMap[type ?? ""] || [];
 
   const title: string = type + "ファイルをここにドラッグ";
   const navigate = useNavigate(); // 画面遷移
-
-  const userJson = localStorage.getItem("currentUser");
  
   useEffect(() => {
     const userJson = localStorage.getItem("currentUser");
     if (userJson) {
       try {
         const user = JSON.parse(userJson);
-        const email = encodeURIComponent(user.email);
-        const token = user.token;
+        setEmail(encodeURIComponent(user.email));
+        setToken(user.token);
       } catch (e) {
         console.error("currentUserのパースに失敗:", e);
       }
@@ -83,7 +83,7 @@ export const UploadFile = () => {
     formData.append("folder", type ?? "other");
 
     try {
-      const res = await fetch("http://localhost:8000/upload", {
+      const res = await fetch(`http://localhost:8000/upload/${email}`, {
         method: "POST",
         body: formData,
       });
